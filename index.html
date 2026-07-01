@@ -130,7 +130,7 @@ const DB_PATH = 'bates_rental/tenant_data';
 
 const PASSWORD = "bates932";
 
-const LEASE_SECTIONS = ["Preamble","Parties","Premises","Term","Rent","Security","Insurance","Maintenance","Landlord","Pet","Utilities","Terms","Signatures"];
+const LEASE_SECTIONS = ["Preamble","Parties","Premises","Term","Rent","Security","Insurance","Maintenance","Landlord & Pet","Utilities","Terms","Schedule A","Signatures"];
 const Q_SECTIONS = ["Basic info","Occupancy","Employment","Outdoor work","Basement","Digitization","Misc work","Work plan","Comments"];
 const SEASONS = ["Spring","Summer","Fall","Winter"];
 const OUTDOOR_TASKS = {
@@ -354,7 +354,7 @@ function renderLeaseSection(sec) {
       </ul>
       <p class="lease-text" style="margin-top:.6rem">These improvements are provided as part of Landlord's commitment to delivering the Premises in good working order and are not charged to Tenant.</p>
       <p class="lease-section-head">Property taxes</p>
-      <p class="lease-text">For reference, the annual property taxes on the Premises are approximately <strong>$6,000/year</strong>. This is provided for transparency and does not affect Tenant's rent obligation.</p>
+      <p class="lease-text">For reference, the annual property taxes on the Premises are approximately <strong>$7,200/year</strong>. This is provided for transparency and does not affect Tenant's rent obligation.</p>
     </div>`;
 
   if (sec===1) return `
@@ -362,7 +362,7 @@ function renderLeaseSection(sec) {
       <div class="section-title">Parties</div>
       <p class="lease-text" style="margin-bottom:.75rem">This Residential Lease Agreement is entered into as of ${lf('leaseDate',L.leaseDate,'narrow')}, 2026, by and between:</p>
       <p class="lease-section-head">Landlord</p>
-      <p class="lease-text"><strong>Markley Boyer</strong>, Bates Church Road, Margaretville, NY</p>
+      <p class="lease-text"><strong>Markley Boyer</strong>, Bates Church Road, Preston Hollow, NY 12469</p>
       <p class="lease-section-head">Tenant</p>
       <div class="lease-block">
         ${field("Full legal name","lease.tenantName",L.tenantName)}
@@ -378,7 +378,7 @@ function renderLeaseSection(sec) {
     <div class="card">
       <div class="section-title">Premises</div>
       <p class="lease-text">Landlord agrees to lease to Tenant the residential property located at:</p>
-      <p class="lease-text" style="text-align:center;font-weight:600;margin:.6rem 0"><strong>932 Bates Church Road, Margaretville, New York 12455</strong></p>
+      <p class="lease-text" style="text-align:center;font-weight:600;margin:.6rem 0"><strong>932 Bates Church Road, Preston Hollow, New York 12469</strong></p>
       <p class="lease-text">The premises is a single-story, three-bedroom, two-bathroom home with full basement and two-car garage, constructed circa 1970s (the "Premises"). Tenant shall have use of the garage and basement for storage purposes as agreed by both parties.</p>
     </div>`;
 
@@ -400,7 +400,7 @@ function renderLeaseSection(sec) {
       </ul>
       <p class="lease-text" style="margin-top:.5rem">Tenant's minimum cash obligation is $1,000/month regardless of Work Credits earned. Work Credits are not payable in cash by Landlord.</p>
       <p class="lease-section-head">Work credit flexibility</p>
-      <p class="lease-text">Recognizing that Tenant's availability varies by season (Tenant being employed as a chef with heavier summer hours), Work Credits earned in any month in excess of that month's allocation may be carried forward and applied to future months' rent. At the start of each quarter, both parties shall agree on a Work Credit plan for the coming quarter. All tasks require pre-approval by Landlord in writing.</p>
+      <p class="lease-text">Recognizing that Tenant's availability varies by season (Tenant being employed as a chef with heavier summer hours), Work Credits earned in any month in excess of that month's allocation may be carried forward and applied to future months' rent, up to a maximum carry-forward balance of $[TBD] at any time. At the start of each quarter, both parties shall agree on a Work Credit plan for the coming quarter. All tasks require pre-approval by Landlord in writing.</p>
       <p class="lease-section-head">Monthly accounting</p>
       <p class="lease-text">Landlord shall maintain a running Work Credit ledger. Tenant shall submit a written log of completed tasks by the last day of each month. Both parties shall confirm the credit balance monthly.</p>
     </div>`;
@@ -408,7 +408,7 @@ function renderLeaseSection(sec) {
   if (sec===5) return `
     <div class="card">
       <div class="section-title">Security deposit</div>
-      <p class="lease-text">Tenant shall pay a security deposit of $${lf('securityDeposit',L.securityDeposit,'narrow')} upon execution of this Agreement, held in accordance with New York State law and returned within 14 days of lease termination, less any lawful deductions for damages beyond normal wear and tear.</p>
+      <p class="lease-text">Tenant shall pay a security deposit of $${lf('securityDeposit',L.securityDeposit,'narrow')} upon execution of this Agreement, held in accordance with New York State law and returned within [14/30] days of lease termination, less any lawful deductions for damages beyond normal wear and tear.</p>
       <p class="lease-text" style="margin-top:.5rem">An additional pet deposit of $${lf('petDeposit',L.petDeposit,'narrow')} is due upon signing.</p>
     </div>`;
 
@@ -416,13 +416,13 @@ function renderLeaseSection(sec) {
     <div class="card">
       <div class="section-title">Insurance</div>
       <p class="lease-text">Landlord shall maintain property and liability insurance on the building and structure at the Premises at Landlord's expense.</p>
-      <p class="lease-text" style="margin-top:.5rem">Tenant is required to obtain renter's insurance covering Tenant's personal property and personal liability, and shall provide Landlord with proof of a renter's insurance policy within 30 days of occupancy. Such policy should name Landlord as an interested party.</p>
+      <p class="lease-text" style="margin-top:.5rem">Tenant is strongly encouraged to obtain renter's insurance covering Tenant's personal property and personal liability. Tenant may be required to provide Landlord with proof of a renter's insurance policy as a condition of occupancy. Such policy should name Landlord as an interested party. Renter's insurance is typically low-cost and protects Tenant's belongings and liability in the event of theft, fire, water damage, or other incidents.</p>
     </div>`;
 
   if (sec===7) return `
     <div class="card">
       <div class="section-title">Tenant maintenance obligations</div>
-      <p class="lease-text" style="margin-bottom:.5rem">As a normal condition of tenancy, Tenant is responsible for the following at the Premises, at Tenant's own expense. These obligations are <strong>separate from</strong> and do not earn Work Credits:</p>
+      <p class="lease-text" style="margin-bottom:.5rem">As a normal condition of tenancy, Tenant is responsible for the following day-to-day upkeep at the Premises, at Tenant's own expense and to suit Tenant's own needs. These obligations are <strong>separate from</strong> and do not earn Work Credits:</p>
       <ul class="lease-list">
         <li>Routine lawn mowing and general yard maintenance at 932 Bates Church Road</li>
         <li>Snow removal from walkways and entry areas of the Premises</li>
@@ -464,12 +464,93 @@ function renderLeaseSection(sec) {
       <p class="lease-section-head">Termination</p>
       <p class="lease-text">Either party may terminate this Lease upon sixty (60) days' written notice. Early termination by Tenant without cause may result in forfeiture of the security deposit and liability for remaining rent, unless a replacement tenant acceptable to Landlord is secured.</p>
       <p class="lease-section-head">Governing law</p>
-      <p class="lease-text">This Agreement shall be governed by the laws of the State of New York. Any disputes shall be resolved in the appropriate court of Delaware County, New York.</p>
+      <p class="lease-text">This Agreement shall be governed by the laws of the State of New York. Any disputes shall be resolved in the appropriate court of Schoharie County, New York.</p>
       <p class="lease-section-head">Entire agreement</p>
       <p class="lease-text">This Agreement, including Schedule A (Work Credit Task List), constitutes the entire agreement between the parties and supersedes all prior negotiations. Modifications must be in writing and signed by both parties.</p>
     </div>`;
 
   if (sec===11) return `
+    <div class="card">
+      <div class="section-title">Schedule A — Work credit task list</div>
+      <p class="lease-text" style="margin-bottom:.75rem">The following tasks are eligible for Work Credits. Rates (per hour or per task) shall be agreed upon by both parties. All work requires pre-approval and sign-off by Landlord upon completion.</p>
+
+      <p class="lease-section-head">Category 1: Outdoor / grounds maintenance</p>
+      <p class="lease-text" style="margin-bottom:.5rem">Primary tasks — best performed spring through fall. Landlord is typically on-site May through early July and can generally handle grass cutting during that period. Tenant is asked to cover occasional mowing and grounds maintenance at 945 Bates Church Road during Landlord's absences, including August and other periods when Landlord is away. The parties will coordinate scheduling as practicable.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.75rem">
+        <thead><tr style="background:#f5f4f0"><th style="border:1px solid #e5e3dc;padding:.4rem .5rem;text-align:left">Task</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Rate</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Frequency / Notes</th></tr></thead>
+        <tbody>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Lawn mowing — 945 Bates Church Rd</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">As needed (May–Oct); priority during Landlord absences incl. August</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Trimming / edging — 945 Bates Church Rd</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">As needed</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Leaf blowing / raking — 945 Bates Church Rd</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Fall</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">General yard and grounds cleanup</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Seasonal</td></tr>
+        </tbody>
+      </table>
+
+      <p class="lease-section-head">Category 2: Property checks — other locations</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.75rem">
+        <thead><tr style="background:#f5f4f0"><th style="border:1px solid #e5e3dc;padding:.4rem .5rem;text-align:left">Task</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Rate</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Frequency / Notes</th></tr></thead>
+        <tbody>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Mail pickup & check — 311/312 Bates Hollow Rd</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Weekly or as requested</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Exterior security walk-around</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">As requested</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Interior heat / pipe check (winter)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Bi-weekly Nov–Mar</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Snow removal — other properties (if requested)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">As needed</td></tr>
+        </tbody>
+      </table>
+
+      <p class="lease-section-head">Category 3: Exterior painting & cosmetic repairs</p>
+      <p class="lease-text" style="margin-bottom:.5rem">The Premises and surrounding structures have areas of peeling paint, particularly on window frames and garage doors.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.75rem">
+        <thead><tr style="background:#f5f4f0"><th style="border:1px solid #e5e3dc;padding:.4rem .5rem;text-align:left">Task</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Rate</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Notes</th></tr></thead>
+        <tbody>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Exterior painting — window frames (main house)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Spring/fall preferred</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Exterior painting — garage doors</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Spring/fall preferred</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Scraping / prep work before painting</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">As needed</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Touch-up painting — other exterior surfaces</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">By agreement</td></tr>
+        </tbody>
+      </table>
+
+      <p class="lease-section-head">Category 4: Basement remediation</p>
+      <p class="lease-text" style="margin-bottom:.5rem">The basement has a moisture issue with associated water damage to the subfloor. Cleanup and remediation is a priority winter project. Some tasks involve semi-serious demolition work.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.75rem">
+        <thead><tr style="background:#f5f4f0"><th style="border:1px solid #e5e3dc;padding:.4rem .5rem;text-align:left">Task</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Rate</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Notes</th></tr></thead>
+        <tbody>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">General basement cleanout / tidying</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Winter priority</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Removal of damaged materials and debris</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Winter priority</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Demo: removal of damaged plywood subfloor</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Semi-serious demolition; by agreement</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Other remediation tasks (by agreement)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">TBD</td></tr>
+        </tbody>
+      </table>
+
+      <p class="lease-section-head">Category 5: Document digitization (family archive project)</p>
+      <p class="lease-text" style="margin-bottom:.5rem">Landlord maintains a large archive of family documents stored at a nearby property. This is a substantial indoor/at-home project well-suited to fall and winter months, with near-unlimited scope.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.75rem">
+        <thead><tr style="background:#f5f4f0"><th style="border:1px solid #e5e3dc;padding:.4rem .5rem;text-align:left">Task</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Rate</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Notes</th></tr></thead>
+        <tbody>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Scanning documents / photographs</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Scanner provided by Landlord</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">File naming and organization</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Per agreed protocol</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Transcription of handwritten documents</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">As needed</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Data entry / spreadsheet logging</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Per agreed template</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Quality review of scanned files</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Spot-check basis</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Other archive tasks (by agreement)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">TBD</td></tr>
+        </tbody>
+      </table>
+
+      <p class="lease-section-head">Category 6: Miscellaneous property work (barn, sheds, fields)</p>
+      <p class="lease-text" style="margin-bottom:.5rem">Landlord's broader property includes a barn, outbuildings, storage sheds, and fields requiring periodic attention.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:.75rem">
+        <thead><tr style="background:#f5f4f0"><th style="border:1px solid #e5e3dc;padding:.4rem .5rem;text-align:left">Task</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Rate</th><th style="border:1px solid #e5e3dc;padding:.4rem .5rem">Notes</th></tr></thead>
+        <tbody>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Exterior painting — barn (partial or full)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Spring/fall preferred</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Exterior shed cleanup and organization</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">By agreement</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Field / meadow mowing (if equipment available)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Seasonal</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">General property tidying and debris removal</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">As needed</td></tr>
+          <tr><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">Other miscellaneous tasks (by agreement)</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem;text-align:center">TBD</td><td style="border:1px solid #e5e3dc;padding:.35rem .5rem">TBD</td></tr>
+        </tbody>
+      </table>
+      <p class="note">A separate Work Protocol document will be agreed upon by both parties prior to commencement of any archive digitization or major project work, outlining deliverables, file formats, quality standards, and scheduling.</p>
+    </div>`;
+
+  if (sec===12) return `
     <div class="card">
       <div class="section-title">Signatures</div>
       <p class="lease-text" style="margin-bottom:.85rem">By signing below, the parties agree to the terms of this Lease Agreement.</p>
