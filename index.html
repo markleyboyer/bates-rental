@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>932 Bates Church Road</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a1a;min-height:100vh}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.login-card{background:#fff;border-radius:16px;padding:2.5rem;width:100%;max-width:380px;border:1px solid #e5e3dc;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.login-card h1{font-size:1.2rem;font-weight:600;margin-bottom:.4rem}
+.login-card .sub{font-size:.82rem;color:#888;margin-bottom:1.5rem;line-height:1.5}
+.login-card input{width:100%;padding:.7rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;outline:none;transition:border .2s;font-family:inherit}
+.login-card input:focus{border-color:#4a7c59}
+.login-btn{width:100%;margin-top:.85rem;padding:.75rem;background:#4a7c59;color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:500;cursor:pointer;transition:background .2s}
+.login-btn:hover{background:#3d6849}
+.login-error{color:#c0392b;font-size:.8rem;margin-top:.4rem;min-height:1.1em}
+.app{max-width:720px;margin:0 auto;padding:1rem 1rem 4rem}
+.header{background:#4a7c59;color:#fff;padding:1.25rem 1.5rem;border-radius:12px;margin-bottom:1.1rem}
+.header h1{font-size:1.05rem;font-weight:600}
+.header p{font-size:.77rem;opacity:.85;margin-top:.2rem}
+.progress-bar{background:rgba(255,255,255,.25);border-radius:4px;height:4px;margin-top:.6rem}
+.progress-fill{background:#fff;height:4px;border-radius:4px;transition:width .4s}
+.top-tabs{display:flex;gap:.5rem;margin-bottom:.85rem}
+.top-tab{flex:1;padding:.55rem;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:.82rem;font-weight:500;cursor:pointer;text-align:center;color:#555;transition:all .15s}
+.top-tab.active{background:#4a7c59;color:#fff;border-color:#4a7c59}
+.nav-tabs{display:flex;gap:.3rem;margin-bottom:1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.1rem}
+.nav-tabs::-webkit-scrollbar{display:none}
+.tab{padding:.38rem .7rem;border-radius:20px;border:1px solid #ddd;background:#fff;font-size:.72rem;font-weight:500;cursor:pointer;white-space:nowrap;color:#555;transition:all .12s;flex-shrink:0}
+.tab.active{background:#4a7c59;color:#fff;border-color:#4a7c59}
+.tab.done{border-color:#4a7c59;color:#4a7c59}
+.card{background:#fff;border-radius:12px;border:1px solid #e5e3dc;padding:1.25rem;margin-bottom:.85rem}
+.section-title{font-size:.95rem;font-weight:600;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid #f0eeea}
+.section-note{font-size:.78rem;color:#555;margin-bottom:1rem;line-height:1.55;padding:.7rem .9rem;background:#f9f8f4;border-radius:8px;border-left:3px solid #4a7c59}
+.field{margin-bottom:.95rem}
+.field label{display:block;font-size:.8rem;font-weight:500;color:#444;margin-bottom:.3rem;line-height:1.4}
+.field input[type=text],.field textarea{width:100%;padding:.58rem .82rem;border:1px solid #ddd;border-radius:8px;font-size:.88rem;outline:none;transition:border .2s;font-family:inherit;background:#fafaf8}
+.field input:focus,.field textarea:focus{border-color:#4a7c59;background:#fff}
+.field textarea{resize:vertical;line-height:1.5}
+.lease-block{margin-bottom:1.1rem}
+.lease-text{font-size:.82rem;line-height:1.7;color:#333;margin-bottom:.6rem}
+.lease-text strong{font-weight:600;color:#1a1a1a}
+.lease-field-inline{display:inline-block;min-width:140px;border:none;border-bottom:1.5px solid #4a7c59;background:transparent;font-size:.82rem;font-family:inherit;color:#1a1a1a;padding:.1rem .3rem;outline:none;vertical-align:bottom}
+.lease-field-inline:focus{background:#f0f7f3;border-radius:3px}
+.lease-field-inline.wide{min-width:220px}
+.lease-field-inline.narrow{min-width:80px}
+.lease-section-head{font-size:.88rem;font-weight:600;color:#1a1a1a;margin:1.25rem 0 .5rem;padding-top:.75rem;border-top:1px solid #f0eeea}
+.lease-section-head:first-child{border-top:none;margin-top:0}
+ul.lease-list{margin:.4rem 0 .4rem 1.2rem}
+ul.lease-list li{font-size:.82rem;line-height:1.7;color:#333;margin-bottom:.2rem}
+.sig-block{display:flex;flex-direction:column;gap:.6rem;margin-top:.75rem}
+.sig-row{display:flex;flex-direction:column;gap:.3rem}
+.sig-row label{font-size:.75rem;font-weight:500;color:#666}
+.sig-row input{width:100%;border:none;border-bottom:1.5px solid #4a7c59;background:transparent;font-size:.9rem;font-family:inherit;padding:.2rem .3rem;outline:none}
+@media(min-width:500px){.sig-block{flex-direction:row;flex-wrap:wrap}.sig-row{flex:1;min-width:200px}}
+.season-grid{width:100%;border-collapse:collapse;font-size:.73rem;margin-top:.35rem}
+.season-grid th{background:#f5f4f0;padding:.42rem .32rem;text-align:center;font-weight:500;color:#555;border:1px solid #e5e3dc}
+.season-grid th:first-child{text-align:left;padding-left:.55rem}
+.season-grid td{border:1px solid #e5e3dc;padding:.3rem .22rem;text-align:center;vertical-align:middle}
+.season-grid td:first-child{text-align:left;padding:.3rem .55rem;color:#333;background:#fafaf8;min-width:120px}
+.avail-group{display:flex;flex-direction:column;gap:.18rem;align-items:center}
+.avail-btn{padding:.13rem .36rem;border-radius:10px;border:1px solid #ddd;font-size:.63rem;cursor:pointer;background:#fff;color:#555;transition:all .12s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.avail-btn.sel-avail{background:#d4edda;border-color:#4a7c59;color:#2d6a3f;font-weight:500}
+.avail-btn.sel-ltd{background:#fff3cd;border-color:#d4a017;color:#7a5800;font-weight:500}
+.avail-btn.sel-no{background:#f8d7da;border-color:#c0392b;color:#8b1a1a;font-weight:500}
+.hours-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;margin-top:.35rem}
+@media(min-width:480px){.hours-grid{grid-template-columns:repeat(4,1fr)}}
+.hours-cell{border:1px solid #e5e3dc;border-radius:8px;padding:.5rem .4rem;text-align:center;background:#fafaf8}
+.hours-cell .slabel{font-size:.65rem;color:#666;font-weight:500;margin-bottom:.28rem}
+.hours-cell input{width:100%;text-align:center;border:1px solid #ddd;border-radius:6px;padding:.25rem;font-size:.82rem;background:#fff;outline:none;font-family:inherit}
+.hours-cell input:focus{border-color:#4a7c59}
+.checkbox-group{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.35rem}
+.checkbox-item{display:flex;align-items:center;gap:.32rem;font-size:.78rem;cursor:pointer;color:#333;padding:.27rem .5rem;border:1px solid #ddd;border-radius:6px;background:#fafaf8;transition:all .12s}
+.checkbox-item input{accent-color:#4a7c59;width:13px;height:13px;flex-shrink:0}
+.checkbox-item.checked{border-color:#4a7c59;background:#f0f7f3;color:#2d6a3f}
+.cat-label{font-size:.75rem;font-weight:600;color:#4a7c59;margin:1rem 0 .45rem;text-transform:uppercase;letter-spacing:.04em}
+.plan-grid{width:100%;border-collapse:collapse;font-size:.8rem}
+.plan-grid th{background:#f5f4f0;padding:.45rem;text-align:left;font-weight:500;color:#555;border:1px solid #e5e3dc;font-size:.73rem}
+.plan-grid td{border:1px solid #e5e3dc;padding:.3rem .4rem;vertical-align:top}
+.plan-grid td:first-child{background:#fafaf8;font-weight:500;font-size:.73rem;white-space:nowrap;color:#444;min-width:88px}
+.plan-grid td textarea,.plan-grid td input{width:100%;border:none;background:transparent;font-size:.8rem;outline:none;font-family:inherit;padding:.08rem}
+.plan-grid td textarea{resize:none;min-height:38px}
+.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:1.1rem;gap:.5rem}
+.btn{padding:.58rem 1.1rem;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .12s;border:1px solid #ddd;background:#fff;color:#444;-webkit-tap-highlight-color:transparent}
+.btn.primary{background:#4a7c59;color:#fff;border-color:#4a7c59}
+.btn.primary:hover{background:#3d6849}
+.btn.secondary{background:#fff;color:#4a7c59;border-color:#4a7c59}
+.btn.secondary:hover{background:#f0f7f3}
+.save-row{display:flex;align-items:center;gap:.5rem}
+.sync-ind{font-size:.7rem;color:#4a7c59;opacity:0;transition:opacity .3s;display:flex;align-items:center;gap:.25rem}
+.sync-ind.show{opacity:1}
+.sync-ind.saving{color:#d4a017}
+.complete-card{background:#fff;border-radius:12px;border:1px solid #e5e3dc;padding:1.75rem;text-align:center;margin-top:.85rem}
+.complete-card h2{font-size:.98rem;font-weight:600;margin-bottom:.4rem}
+.complete-card p{font-size:.8rem;color:#666;line-height:1.6}
+.note{font-size:.7rem;color:#888;font-style:italic;margin-top:.7rem;line-height:1.5}
+.print-btn{display:block;width:100%;margin-top:1rem;padding:.65rem;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;text-align:center}
+.print-btn:hover{background:#333}
+@media print{
+  .header,.top-tabs,.nav-tabs,.btn-row,.sync-ind,.print-btn,.top-tab,.login-wrap{display:none!important}
+  .app{padding:0;max-width:100%}
+  .card{border:none;padding:.5rem 0;page-break-inside:avoid}
+  body{background:#fff;font-size:11pt}
+  .lease-text{font-size:11pt}
+  .lease-field-inline{border-bottom:1px solid #000}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getDatabase, ref, set, get, onValue } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCoi9hXzQqLphgetIUMkJrvWT1RgqsHE_A",
+  authDomain: "bates-rental.firebaseapp.com",
+  databaseURL: "https://bates-rental-default-rtdb.firebaseio.com",
+  projectId: "bates-rental",
+  storageBucket: "bates-rental.firebasestorage.app",
+  messagingSenderId: "165364629536",
+  appId: "1:165364629536:web:b46ea56966b3df3a383c45"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const DB_PATH = 'bates_rental/tenant_data';
+
+const PASSWORD = "bates932";
+
+const LEASE_SECTIONS = ["Preamble","Parties","Premises","Term","Rent","Security","Insurance","Maintenance","Landlord","Pet","Utilities","Terms","Signatures"];
+const Q_SECTIONS = ["Basic info","Occupancy","Employment","Outdoor work","Basement","Digitization","Misc work","Work plan","Comments"];
+const SEASONS = ["Spring","Summer","Fall","Winter"];
+const OUTDOOR_TASKS = {
+  "4A. Lawn & grounds":["Lawn mowing (ride-on)","String trimming / edging","Leaf blowing / raking","Garden bed / general cleanup","Light brush clearing"],
+  "4B. Exterior painting":["Prep work (scraping, priming)","Exterior painting — window frames","Exterior painting — garage doors","Exterior painting — barn / outbuildings"],
+  "4C. Property checks — other locations":["Mail pickup & forwarding","Exterior security walk-around","Interior heat / pipe check","Basic security check"],
+};
+const HANDINESS = ["Minor plumbing (fixtures)","Minor electrical (bulbs/switches)","Basic carpentry","Gutter cleaning","Window washing","Pressure washing"];
+const PLAN_ROWS = ["Spring (Mar–May)","Summer (Jun–Aug)","Fall (Sep–Nov)","Winter (Dec–Feb)"];
+
+function defaultOutdoor() {
+  const o = {};
+  for (const [cat,tasks] of Object.entries(OUTDOOR_TASKS)) {
+    o[cat] = {};
+    for (const t of tasks) o[cat][t] = {Spring:"",Summer:"",Fall:"",Winter:""};
+  }
+  return o;
+}
+function defaultPlan() {
+  const p = {};
+  for (const r of PLAN_ROWS) p[r] = {tasks:"",hours:""};
+  return p;
+}
+
+function getDefault() {
+  return {
+    lease:{
+      tenantName:"", tenantAddress:"", tenantPhone:"", tenantEmail:"",
+      leaseDate:"", startDate:"", endDate:"",
+      securityDeposit:"", petDeposit:"",
+      utilElectric:"Tenant", utilHeat:"Tenant", utilWater:"Landlord",
+      utilInternet:"Tenant", utilTrash:"Landlord", utilPropane:"Tenant",
+      landlordSig:"", landlordDate:"", tenantSig:"", tenantSigDate:"",
+      tenantPrinted:"", occupants:"", petInfo:"",
+    },
+    questionnaire:{
+      basic:{name:"",address:"",phone:"",email:"",occupants:"",dog:""},
+      occupancy:{moveIn:"",accommodation:""},
+      employment:{employer:"",schedule:"",hoursSpring:"",hoursSummer:"",hoursFall:"",hoursWinter:"",bestDays:"",summerFlex:""},
+      outdoor:{taskAvail:defaultOutdoor(),mowerExp:"",ownEquip:"",paintExp:"",ladders:""},
+      handiness:{checked:{},otherSkills:""},
+      basement:{cleanout:"",demo:"",tools:"",limitations:""},
+      digitization:{exp:"",scanner:"",fileOrg:"",dataEntry:"",computer:"",archiveHours:""},
+      misc:{barn:"",cleanup:"",otherSkills:""},
+      plan:{rows:defaultPlan()},
+      comments:{comments:""},
+    },
+    meta:{mode:"lease", leaseSection:0, qSection:0}
+  };
+}
+
+function deepMerge(target, source) {
+  const result = Object.assign({}, target);
+  for (const k of Object.keys(source||{})) {
+    if (source[k] && typeof source[k]==='object' && !Array.isArray(source[k]) && target[k] && typeof target[k]==='object') {
+      result[k] = deepMerge(target[k], source[k]);
+    } else if (source[k] !== undefined) {
+      result[k] = source[k];
+    }
+  }
+  return result;
+}
+
+let state = getDefault();
+let loggedIn = false;
+let saveTimer = null;
+let syncListenerSet = false;
+
+function scheduleSave() {
+  showSync('saving');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(pushToFirebase, 900);
+}
+
+async function pushToFirebase() {
+  try {
+    await set(ref(db, DB_PATH), state);
+    showSync('saved');
+  } catch(e) {
+    console.error('Save failed', e);
+  }
+}
+
+async function loadFromFirebase() {
+  try {
+    const snap = await get(ref(db, DB_PATH));
+    if (snap.exists()) {
+      state = deepMerge(getDefault(), snap.val());
+    }
+  } catch(e) {}
+}
+
+function setupRealtimeSync() {
+  if (syncListenerSet) return;
+  syncListenerSet = true;
+  onValue(ref(db, DB_PATH), (snap) => {
+    if (!snap.exists()) return;
+    const remote = snap.val();
+    state = deepMerge(getDefault(), remote);
+    if (loggedIn) renderApp();
+  });
+}
+
+function showSync(type) {
+  const el = document.getElementById('sync-ind');
+  if (!el) return;
+  el.className = 'sync-ind show ' + (type==='saving'?'saving':'');
+  el.innerHTML = type==='saving' ? '↑ Saving…' : '✓ Synced';
+  if (type==='saved') setTimeout(()=>{ if(el) el.classList.remove('show'); }, 2000);
+}
+
+function S(path, value) {
+  const parts = path.split('.');
+  let obj = state;
+  for (let i=0;i<parts.length-1;i++) obj = obj[parts[i]];
+  obj[parts[parts.length-1]] = value;
+  scheduleSave();
+}
+window.S = S;
+
+window.setOutdoor = function(cat, task, season, btnVal) {
+  const cur = state.questionnaire.outdoor.taskAvail[cat][task][season];
+  state.questionnaire.outdoor.taskAvail[cat][task][season] = cur === btnVal ? '' : btnVal;
+  scheduleSave();
+  renderApp();
+};
+
+window.toggleHandiness = function(item) {
+  state.questionnaire.handiness.checked[item] = !state.questionnaire.handiness.checked[item];
+  scheduleSave();
+  renderApp();
+};
+
+window.setPlan = function(row, field, value) {
+  state.questionnaire.plan.rows[row][field] = value;
+  scheduleSave();
+};
+
+window.goMode = function(mode) {
+  state.meta.mode = mode;
+  scheduleSave();
+  renderApp();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+window.goLeaseSection = function(i) {
+  state.meta.leaseSection = i;
+  scheduleSave();
+  renderApp();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+window.goQSection = function(i) {
+  state.meta.qSection = i;
+  scheduleSave();
+  renderApp();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+window.tryLogin = function() {
+  const val = document.getElementById('pw-input').value;
+  if (val === PASSWORD) {
+    loggedIn = true;
+    loadFromFirebase().then(() => {
+      setupRealtimeSync();
+      renderApp();
+    });
+  } else {
+    document.getElementById('pw-error').textContent = 'Incorrect password. Please try again.';
+  }
+};
+
+window.printLease = function() { window.print(); };
+
+function e(text) {
+  return (text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function field(label, path, value, rows) {
+  const v = e(value);
+  if (rows) return `<div class="field"><label>${label}</label><textarea rows="${rows}" oninput="S('${path}',this.value)">${v}</textarea></div>`;
+  return `<div class="field"><label>${label}</label><input type="text" value="${v}" oninput="S('${path}',this.value)"></div>`;
+}
+
+function lf(path, value, width) {
+  const v = e(value);
+  const cls = width==='wide'?'wide':width==='narrow'?'narrow':'';
+  return `<input class="lease-field-inline ${cls}" type="text" value="${v}" oninput="S('lease.${path}',this.value)" placeholder="___________">`;
+}
+
+function renderLogin() {
+  document.getElementById('root').innerHTML = `
+    <div class="login-wrap">
+      <div class="login-card">
+        <h1>932 Bates Church Road</h1>
+        <p class="sub">Rental documents — enter the password to access your lease and questionnaire.</p>
+        <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')tryLogin()">
+        <div id="pw-error" class="login-error"></div>
+        <button class="login-btn" onclick="tryLogin()">Continue</button>
+      </div>
+    </div>`;
+  setTimeout(()=>{ const el=document.getElementById('pw-input'); if(el) el.focus(); },50);
+}
+
+function renderLeaseSection(sec) {
+  const L = state.lease;
+
+  if (sec===0) return `
+    <div class="card">
+      <div class="section-title">Preamble & background</div>
+      <div class="section-note">This section provides context for the arrangement. Please review — no fields to fill in here.</div>
+      <p class="lease-text">This Lease is entered into in a spirit of mutual benefit and transparency. The goal is to provide Tenant with stable, affordable housing below her current monthly housing costs, while enabling Landlord to have the property cared for, maintained, and improved on an ongoing basis. Tenant's current monthly mortgage obligation is approximately <strong>$1,200/month</strong>; this Lease is structured so that Tenant's cash rent obligation comes in below that figure.</p>
+      <p class="lease-section-head">Landlord's pre-occupancy investment</p>
+      <p class="lease-text">In preparation for Tenant's occupancy, Landlord has undertaken the following plumbing improvements at the Premises, at a total cost of approximately <strong>$2,000</strong>:</p>
+      <ul class="lease-list">
+        <li>Hired a licensed plumber to inspect and service the property</li>
+        <li>Installed two (2) new bathroom faucet sets</li>
+        <li>Installed one (1) new kitchen faucet set</li>
+        <li>Replaced two (2) toilet tank float sets</li>
+        <li>Repaired and restored a malfunctioning water filter system</li>
+      </ul>
+      <p class="lease-text" style="margin-top:.6rem">These improvements are provided as part of Landlord's commitment to delivering the Premises in good working order and are not charged to Tenant.</p>
+      <p class="lease-section-head">Property taxes</p>
+      <p class="lease-text">For reference, the annual property taxes on the Premises are approximately <strong>$6,000/year</strong>. This is provided for transparency and does not affect Tenant's rent obligation.</p>
+    </div>`;
+
+  if (sec===1) return `
+    <div class="card">
+      <div class="section-title">Parties</div>
+      <p class="lease-text" style="margin-bottom:.75rem">This Residential Lease Agreement is entered into as of ${lf('leaseDate',L.leaseDate,'narrow')}, 2026, by and between:</p>
+      <p class="lease-section-head">Landlord</p>
+      <p class="lease-text"><strong>Markley Boyer</strong>, Bates Church Road, Margaretville, NY</p>
+      <p class="lease-section-head">Tenant</p>
+      <div class="lease-block">
+        ${field("Full legal name","lease.tenantName",L.tenantName)}
+        ${field("Current address","lease.tenantAddress",L.tenantAddress)}
+        ${field("Phone","lease.tenantPhone",L.tenantPhone)}
+        ${field("Email","lease.tenantEmail",L.tenantEmail)}
+        ${field("Additional occupants (names and ages)","lease.occupants",L.occupants)}
+        ${field("Pet(s) — name, breed, approximate age","lease.petInfo",L.petInfo)}
+      </div>
+    </div>`;
+
+  if (sec===2) return `
+    <div class="card">
+      <div class="section-title">Premises</div>
+      <p class="lease-text">Landlord agrees to lease to Tenant the residential property located at:</p>
+      <p class="lease-text" style="text-align:center;font-weight:600;margin:.6rem 0"><strong>932 Bates Church Road, Margaretville, New York 12455</strong></p>
+      <p class="lease-text">The premises is a single-story, three-bedroom, two-bathroom home with full basement and two-car garage, constructed circa 1970s (the "Premises"). Tenant shall have use of the garage and basement for storage purposes as agreed by both parties.</p>
+    </div>`;
+
+  if (sec===3) return `
+    <div class="card">
+      <div class="section-title">Lease term</div>
+      <p class="lease-text">This Lease shall commence on ${lf('startDate',L.startDate,'narrow')}, 2026, and continue for a period of one (1) year, ending on ${lf('endDate',L.endDate,'narrow')}, 2027.</p>
+      <p class="lease-text" style="margin-top:.6rem">At the conclusion of the initial term, this Lease shall renew for successive one-year periods upon the mutual written agreement of both parties, provided that either party gives no less than sixty (60) days' written notice of their intent not to renew.</p>
+    </div>`;
+
+  if (sec===4) return `
+    <div class="card">
+      <div class="section-title">Rent & work credits</div>
+      <p class="lease-section-head">Total monthly rent</p>
+      <p class="lease-text">The total monthly rent for the Premises is <strong>TWO THOUSAND DOLLARS ($2,000.00)</strong>, comprised as follows:</p>
+      <ul class="lease-list">
+        <li><strong>Cash Rent:</strong> ONE THOUSAND DOLLARS ($1,000.00) per month, due on the first (1st) day of each calendar month.</li>
+        <li><strong>Work Credits:</strong> Up to ONE THOUSAND DOLLARS ($1,000.00) per month, earned through approved tasks per Schedule A.</li>
+      </ul>
+      <p class="lease-text" style="margin-top:.5rem">Tenant's minimum cash obligation is $1,000/month regardless of Work Credits earned. Work Credits are not payable in cash by Landlord.</p>
+      <p class="lease-section-head">Work credit flexibility</p>
+      <p class="lease-text">Recognizing that Tenant's availability varies by season (Tenant being employed as a chef with heavier summer hours), Work Credits earned in any month in excess of that month's allocation may be carried forward and applied to future months' rent. At the start of each quarter, both parties shall agree on a Work Credit plan for the coming quarter. All tasks require pre-approval by Landlord in writing.</p>
+      <p class="lease-section-head">Monthly accounting</p>
+      <p class="lease-text">Landlord shall maintain a running Work Credit ledger. Tenant shall submit a written log of completed tasks by the last day of each month. Both parties shall confirm the credit balance monthly.</p>
+    </div>`;
+
+  if (sec===5) return `
+    <div class="card">
+      <div class="section-title">Security deposit</div>
+      <p class="lease-text">Tenant shall pay a security deposit of $${lf('securityDeposit',L.securityDeposit,'narrow')} upon execution of this Agreement, held in accordance with New York State law and returned within 14 days of lease termination, less any lawful deductions for damages beyond normal wear and tear.</p>
+      <p class="lease-text" style="margin-top:.5rem">An additional pet deposit of $${lf('petDeposit',L.petDeposit,'narrow')} is due upon signing.</p>
+    </div>`;
+
+  if (sec===6) return `
+    <div class="card">
+      <div class="section-title">Insurance</div>
+      <p class="lease-text">Landlord shall maintain property and liability insurance on the building and structure at the Premises at Landlord's expense.</p>
+      <p class="lease-text" style="margin-top:.5rem">Tenant is required to obtain renter's insurance covering Tenant's personal property and personal liability, and shall provide Landlord with proof of a renter's insurance policy within 30 days of occupancy. Such policy should name Landlord as an interested party.</p>
+    </div>`;
+
+  if (sec===7) return `
+    <div class="card">
+      <div class="section-title">Tenant maintenance obligations</div>
+      <p class="lease-text" style="margin-bottom:.5rem">As a normal condition of tenancy, Tenant is responsible for the following at the Premises, at Tenant's own expense. These obligations are <strong>separate from</strong> and do not earn Work Credits:</p>
+      <ul class="lease-list">
+        <li>Routine lawn mowing and general yard maintenance at 932 Bates Church Road</li>
+        <li>Snow removal from walkways and entry areas of the Premises</li>
+        <li>Interior cleaning and general upkeep</li>
+        <li>Proper disposal of trash and recycling per local requirements</li>
+        <li>Prompt reporting of any maintenance issues or damage to Landlord</li>
+      </ul>
+    </div>`;
+
+  if (sec===8) return `
+    <div class="card">
+      <div class="section-title">Landlord's obligations & pet policy</div>
+      <p class="lease-section-head">Landlord's obligations</p>
+      <p class="lease-text">Landlord shall maintain the Premises in a habitable condition and shall be responsible for major structural repairs, heating system maintenance, and other items required by New York State law. Landlord shall give at least 24 hours' notice before entering the Premises except in emergencies.</p>
+      <p class="lease-section-head">Pet policy</p>
+      <p class="lease-text">Tenant is permitted to keep one (1) dog on the Premises. Tenant is responsible for any damage caused by the pet and for ensuring the pet does not disturb neighboring properties.</p>
+    </div>`;
+
+  if (sec===9) return `
+    <div class="card">
+      <div class="section-title">Utilities</div>
+      <p class="lease-text" style="margin-bottom:.75rem">Please confirm responsibility for each utility:</p>
+      <div class="lease-block">
+        ${['Electric','Heat / Oil / Gas','Water / Sewer','Internet / Cable','Trash Collection','Propane'].map(u => {
+          const key = 'util'+u.split(' ')[0].replace('/','');
+          const val = L[key] || '';
+          return `${field(u, 'lease.'+key, val)}`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  if (sec===10) return `
+    <div class="card">
+      <div class="section-title">General terms</div>
+      <p class="lease-section-head">Use of premises</p>
+      <p class="lease-text">The Premises shall be used solely as a private residence for Tenant and the occupants named herein. No subletting without prior written consent of Landlord.</p>
+      <p class="lease-section-head">Alterations</p>
+      <p class="lease-text">Tenant shall make no structural alterations without Landlord's prior written consent. Minor cosmetic changes are permitted.</p>
+      <p class="lease-section-head">Termination</p>
+      <p class="lease-text">Either party may terminate this Lease upon sixty (60) days' written notice. Early termination by Tenant without cause may result in forfeiture of the security deposit and liability for remaining rent, unless a replacement tenant acceptable to Landlord is secured.</p>
+      <p class="lease-section-head">Governing law</p>
+      <p class="lease-text">This Agreement shall be governed by the laws of the State of New York. Any disputes shall be resolved in the appropriate court of Delaware County, New York.</p>
+      <p class="lease-section-head">Entire agreement</p>
+      <p class="lease-text">This Agreement, including Schedule A (Work Credit Task List), constitutes the entire agreement between the parties and supersedes all prior negotiations. Modifications must be in writing and signed by both parties.</p>
+    </div>`;
+
+  if (sec===11) return `
+    <div class="card">
+      <div class="section-title">Signatures</div>
+      <p class="lease-text" style="margin-bottom:.85rem">By signing below, the parties agree to the terms of this Lease Agreement.</p>
+      <div class="sig-block">
+        <div class="sig-row">
+          <label>Landlord signature</label>
+          <input type="text" value="${e(L.landlordSig)}" oninput="S('lease.landlordSig',this.value)" placeholder="Sign here">
+        </div>
+        <div class="sig-row">
+          <label>Landlord date</label>
+          <input type="text" value="${e(L.landlordDate)}" oninput="S('lease.landlordDate',this.value)" placeholder="Date">
+        </div>
+      </div>
+      <div class="sig-block" style="margin-top:1rem">
+        <div class="sig-row">
+          <label>Tenant signature</label>
+          <input type="text" value="${e(L.tenantSig)}" oninput="S('lease.tenantSig',this.value)" placeholder="Sign here">
+        </div>
+        <div class="sig-row">
+          <label>Tenant printed name</label>
+          <input type="text" value="${e(L.tenantPrinted)}" oninput="S('lease.tenantPrinted',this.value)" placeholder="Print name">
+        </div>
+        <div class="sig-row">
+          <label>Tenant date</label>
+          <input type="text" value="${e(L.tenantSigDate)}" oninput="S('lease.tenantSigDate',this.value)" placeholder="Date">
+        </div>
+      </div>
+      <button class="print-btn" onclick="printLease()">🖨 Print lease for signing</button>
+    </div>`;
+
+  return '';
+}
+
+function renderQSection(sec) {
+  const Q = state.questionnaire;
+
+  if (sec===0) return `<div class="card">
+    <div class="section-title">Section 1: Basic information</div>
+    ${field("Full legal name","questionnaire.basic.name",Q.basic.name)}
+    ${field("Current address","questionnaire.basic.address",Q.basic.address)}
+    ${field("Phone number(s)","questionnaire.basic.phone",Q.basic.phone)}
+    ${field("Email address","questionnaire.basic.email",Q.basic.email)}
+    ${field("Names and ages of all occupants","questionnaire.basic.occupants",Q.basic.occupants)}
+    ${field("Dog's name, breed, and approximate age","questionnaire.basic.dog",Q.basic.dog)}
+  </div>`;
+
+  if (sec===1) return `<div class="card">
+    <div class="section-title">Section 2: Occupancy plans</div>
+    ${field("Anticipated move-in date","questionnaire.occupancy.moveIn",Q.occupancy.moveIn)}
+    ${field("Any specific needs or accommodations?","questionnaire.occupancy.accommodation",Q.occupancy.accommodation,3)}
+  </div>`;
+
+  if (sec===2) {
+    const emp = Q.employment;
+    return `<div class="card">
+      <div class="section-title">Section 3: Employment & seasonal availability</div>
+      ${field("Current employer and position","questionnaire.employment.employer",emp.employer)}
+      ${field("Typical weekly work schedule (days and hours)","questionnaire.employment.schedule",emp.schedule)}
+      <div class="field">
+        <label>Approximate monthly availability for work-credit tasks</label>
+        <div class="hours-grid">
+          ${[["Spring (Mar–May)","hoursSpring"],["Summer (Jun–Aug)","hoursSummer"],["Fall (Sep–Nov)","hoursFall"],["Winter (Dec–Feb)","hoursWinter"]].map(([label,key])=>`
+            <div class="hours-cell">
+              <div class="slabel">${label}</div>
+              <input type="text" placeholder="~ hrs/mo" value="${e(emp[key])}" oninput="S('questionnaire.employment.${key}',this.value)">
+            </div>`).join('')}
+        </div>
+      </div>
+      ${field("Which days work best for outdoor tasks?","questionnaire.employment.bestDays",emp.bestDays,2)}
+      ${field("During summer, any flexibility for mowing at neighboring property, particularly August?","questionnaire.employment.summerFlex",emp.summerFlex,3)}
+    </div>`;
+  }
+
+  if (sec===3) {
+    const od = Q.outdoor;
+    return `<div class="card">
+      <div class="section-title">Section 4: Outdoor & property maintenance</div>
+      <p style="font-size:.75rem;color:#666;margin-bottom:.6rem">Tap to mark your availability for each task by season.</p>
+      ${Object.entries(OUTDOOR_TASKS).map(([cat,tasks])=>`
+        <div class="cat-label">${cat}</div>
+        <div style="overflow-x:auto;margin-bottom:.85rem">
+          <table class="season-grid">
+            <thead><tr><th>Task</th>${SEASONS.map(s=>`<th>${s}</th>`).join('')}</tr></thead>
+            <tbody>${tasks.map(task=>`<tr>
+              <td>${task}</td>
+              ${SEASONS.map(season=>{
+                const val = od.taskAvail[cat]?.[task]?.[season]||'';
+                const cs = JSON.stringify(cat), ts = JSON.stringify(task);
+                return `<td><div class="avail-group">
+                  <button class="avail-btn${val==='avail'?' sel-avail':''}" onclick="setOutdoor(${cs},${ts},'${season}','avail')">Avail</button>
+                  <button class="avail-btn${val==='ltd'?' sel-ltd':''}" onclick="setOutdoor(${cs},${ts},'${season}','ltd')">Ltd</button>
+                  <button class="avail-btn${val==='no'?' sel-no':''}" onclick="setOutdoor(${cs},${ts},'${season}','no')">N/A</button>
+                </div></td>`;
+              }).join('')}
+            </tr>`).join('')}</tbody>
+          </table>
+        </div>`).join('')}
+      <div class="cat-label">4D. General handiness — check all that apply</div>
+      <div class="checkbox-group">
+        ${HANDINESS.map(item=>`
+          <label class="checkbox-item${Q.handiness.checked[item]?' checked':''}">
+            <input type="checkbox" ${Q.handiness.checked[item]?'checked':''} onchange="toggleHandiness('${item}')">
+            ${item}
+          </label>`).join('')}
+      </div>
+      <div style="margin-top:.85rem">
+        ${field("Any other outdoor or maintenance skills?","questionnaire.handiness.otherSkills",Q.handiness.otherSkills,2)}
+        ${field("Experience operating a riding lawn mower?","questionnaire.outdoor.mowerExp",od.mowerExp)}
+        ${field("Do you own any lawn equipment?","questionnaire.outdoor.ownEquip",od.ownEquip)}
+        ${field("Experience with exterior painting? Describe.","questionnaire.outdoor.paintExp",od.paintExp,2)}
+        ${field("Comfortable working on ladders?","questionnaire.outdoor.ladders",od.ladders)}
+      </div>
+    </div>`;
+  }
+
+  if (sec===4) return `<div class="card">
+    <div class="section-title">Section 5: Basement remediation</div>
+    <div class="section-note">The basement has a moisture problem with water damage to the subfloor. Cleanup and remediation is a priority project in winter, including possible light demolition such as pulling up damaged plywood subfloor.</div>
+    ${field("Comfortable with general cleanout in a damp/damaged basement?","questionnaire.basement.cleanout",Q.basement.cleanout,2)}
+    ${field("Willing and able to do light demolition work? Any experience?","questionnaire.basement.demo",Q.basement.demo,3)}
+    ${field("Do you have access to basic tools (pry bar, hammer, safety gear)?","questionnaire.basement.tools",Q.basement.tools,2)}
+    ${field("Any physical limitations we should know about?","questionnaire.basement.limitations",Q.basement.limitations,2)}
+  </div>`;
+
+  if (sec===5) return `<div class="card">
+    <div class="section-title">Section 6: Document digitization project</div>
+    <div class="section-note">Landlord maintains a large archive of family documents at a nearby property — a major at-home project ideal for fall and winter, with near-unlimited scope.</div>
+    ${field("Experience with document scanning or digitization?","questionnaire.digitization.exp",Q.digitization.exp,2)}
+    ${field("Comfortable using a flatbed or document scanner?","questionnaire.digitization.scanner",Q.digitization.scanner)}
+    ${field("Experience with file naming and digital organization?","questionnaire.digitization.fileOrg",Q.digitization.fileOrg,2)}
+    ${field("Comfortable with data entry (spreadsheets, databases)?","questionnaire.digitization.dataEntry",Q.digitization.dataEntry,2)}
+    ${field("What computer equipment do you have at home?","questionnaire.digitization.computer",Q.digitization.computer,2)}
+    ${field("Hours/week available for archive work in fall/winter?","questionnaire.digitization.archiveHours",Q.digitization.archiveHours)}
+  </div>`;
+
+  if (sec===6) return `<div class="card">
+    <div class="section-title">Section 7: Miscellaneous property work</div>
+    <div class="section-note">Landlord's property also includes a barn, fields, and outbuildings that may benefit from care and improvements over time.</div>
+    ${field("Interested in barn painting or maintenance work? Any experience?","questionnaire.misc.barn",Q.misc.barn,2)}
+    ${field("Comfortable with general property cleanup — brush clearing, tidying outbuildings, etc.?","questionnaire.misc.cleanup",Q.misc.cleanup,2)}
+    ${field("Any other skills or work you'd be interested in contributing?","questionnaire.misc.otherSkills",Q.misc.otherSkills,3)}
+  </div>`;
+
+  if (sec===7) return `<div class="card">
+    <div class="section-title">Section 8: Proposed seasonal work plan</div>
+    <div class="section-note">Sketch out what you realistically think you could contribute each season. This is a starting point for discussion, not a binding commitment.</div>
+    <div style="overflow-x:auto">
+      <table class="plan-grid">
+        <thead><tr><th>Season</th><th>Primary tasks I could do</th><th style="min-width:82px">Est. hrs/month</th></tr></thead>
+        <tbody>${PLAN_ROWS.map(row=>{
+          const r = Q.plan.rows[row]||{tasks:'',hours:''};
+          return `<tr>
+            <td>${row}</td>
+            <td><textarea oninput="setPlan('${row}','tasks',this.value)" placeholder="Tasks...">${e(r.tasks)}</textarea></td>
+            <td><input type="text" value="${e(r.hours)}" oninput="setPlan('${row}','hours',this.value)" placeholder="~__ hrs"></td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>
+  </div>`;
+
+  if (sec===8) return `
+    <div class="card">
+      <div class="section-title">Section 9: Additional comments</div>
+      ${field("Anything else you'd like the landlord to know?","questionnaire.comments.comments",Q.comments.comments,6)}
+      <p class="note">By completing this questionnaire, you confirm that the information provided is accurate and offered in good faith as a basis for discussion of a potential tenancy at 932 Bates Church Road.</p>
+    </div>
+    <div class="complete-card">
+      <div style="font-size:2rem;margin-bottom:.6rem">✓</div>
+      <h2>All done!</h2>
+      <p style="margin-top:.35rem">Thank you for completing the questionnaire. Your answers are saved and synced automatically. The landlord will review your responses and be in touch soon.</p>
+    </div>`;
+
+  return '';
+}
+
+function renderApp() {
+  const mode = state.meta.mode;
+  const lsec = state.meta.leaseSection || 0;
+  const qsec = state.meta.qSection || 0;
+
+  const isLease = mode === 'lease';
+  const sections = isLease ? LEASE_SECTIONS : Q_SECTIONS;
+  const curSec = isLease ? lsec : qsec;
+  const total = sections.length;
+  const prog = Math.round((curSec / total) * 100);
+  const isLast = curSec === total - 1;
+
+  const body = isLease ? renderLeaseSection(lsec) : renderQSection(qsec);
+  const goFn = isLease ? 'goLeaseSection' : 'goQSection';
+
+  document.getElementById('root').innerHTML = `
+    <div class="app">
+      <div class="header">
+        <h1>932 Bates Church Road</h1>
+        <p>${isLease ? 'Lease Agreement' : 'Tenant Questionnaire'} — ${sections[curSec]} (${curSec+1}/${total})</p>
+        <div class="progress-bar"><div class="progress-fill" style="width:${prog}%"></div></div>
+      </div>
+      <div class="top-tabs">
+        <button class="top-tab ${isLease?'active':''}" onclick="goMode('lease')">📄 Lease</button>
+        <button class="top-tab ${!isLease?'active':''}" onclick="goMode('questionnaire')">📋 Questionnaire</button>
+      </div>
+      <div class="nav-tabs">
+        ${sections.map((s,i)=>`<button class="tab ${i===curSec?'active':i<curSec?'done':''}" onclick="${goFn}(${i})">${s}</button>`).join('')}
+      </div>
+      ${body}
+      <div class="btn-row">
+        ${curSec>0?`<button class="btn secondary" onclick="${goFn}(${curSec-1})">← Back</button>`:'<span></span>'}
+        <div class="save-row">
+          <span class="sync-ind" id="sync-ind"></span>
+          ${!isLast
+            ?`<button class="btn primary" onclick="${goFn}(${curSec+1})">Next →</button>`
+            :`<button class="btn primary" onclick="pushToFirebase()">Save & finish</button>`}
+        </div>
+      </div>
+    </div>`;
+}
+
+window.pushToFirebase = pushToFirebase;
+
+function render() {
+  if (!loggedIn) { renderLogin(); return; }
+  renderApp();
+}
+
+render();
+</script>
+</body>
+</html>
