@@ -162,7 +162,7 @@ function getDefault() {
       leaseDate:"", startDate:"", endDate:"",
       securityDeposit:"", petDeposit:"",
       utilElectric:"Tenant", utilHeat:"Tenant", utilWater:"Landlord",
-      utilInternet:"Tenant", utilTrash:"Landlord", utilPropane:"Tenant",
+      utilInternet:"Tenant", utilTrash:"Tenant", utilPropane:"Tenant",
       landlordSig:"", landlordDate:"", tenantSig:"", tenantSigDate:"",
       tenantPrinted:"", occupants:"", petInfo:"",
     },
@@ -318,7 +318,7 @@ function field(label, path, value, rows) {
 function lf(path, value, width) {
   const v = e(value);
   const cls = width==='wide'?'wide':width==='narrow'?'narrow':'';
-  return `<input class="lease-field-inline ${cls}" type="text" value="${v}" oninput="S('lease.${path}',this.value)" placeholder="___________">`;
+  return `<input class="lease-field-inline ${cls}" type="text" value="${v}" oninput="S('lease.${path}',this.value)">`;
 }
 
 function renderLogin() {
@@ -438,7 +438,7 @@ function renderLeaseSection(sec) {
       <p class="lease-section-head">Landlord's obligations</p>
       <p class="lease-text">Landlord shall maintain the Premises in a habitable condition and shall be responsible for major structural repairs, heating system maintenance, and other items required by New York State law. Landlord shall give at least 24 hours' notice before entering the Premises except in emergencies.</p>
       <p class="lease-section-head">Pet policy</p>
-      <p class="lease-text">Tenant is permitted to keep one (1) dog on the Premises. Tenant is responsible for any damage caused by the pet and for ensuring the pet does not disturb neighboring properties.</p>
+      <p class="lease-text">Tenant is permitted to keep one (1) dog and a backyard flock of chickens on the Premises. Tenant is responsible for any damage caused by the pet(s) or flock and for ensuring they do not disturb neighboring properties. Tenant is responsible for providing and maintaining any coop, run, or fencing needed to house the flock, and for keeping the area clean and free of pests.</p>
     </div>`;
 
   if (sec===9) return `
@@ -446,7 +446,7 @@ function renderLeaseSection(sec) {
       <div class="section-title">Utilities</div>
       <p class="lease-text" style="margin-bottom:.75rem">Please confirm responsibility for each utility:</p>
       <div class="lease-block">
-        ${['Electric','Heat / Oil / Gas','Water / Sewer','Internet / Cable','Trash Collection','Propane'].map(u => {
+        ${['Electric','Heat / Oil / Gas','Water / Sewer','Internet / Cable','Trash Disposal','Propane'].map(u => {
           const key = 'util'+u.split(' ')[0].replace('/','');
           const val = L[key] || '';
           return `${field(u, 'lease.'+key, val)}`;
@@ -638,7 +638,7 @@ function renderQSection(sec) {
               <td>${task}</td>
               ${SEASONS.map(season=>{
                 const val = od.taskAvail[cat]?.[task]?.[season]||'';
-                const cs = JSON.stringify(cat), ts = JSON.stringify(task);
+                const cs = e(JSON.stringify(cat)), ts = e(JSON.stringify(task));
                 return `<td><div class="avail-group">
                   <button class="avail-btn${val==='avail'?' sel-avail':''}" onclick="setOutdoor(${cs},${ts},'${season}','avail')">Avail</button>
                   <button class="avail-btn${val==='ltd'?' sel-ltd':''}" onclick="setOutdoor(${cs},${ts},'${season}','ltd')">Ltd</button>
@@ -721,7 +721,7 @@ function renderQSection(sec) {
     <div class="complete-card">
       <div style="font-size:2rem;margin-bottom:.6rem">✓</div>
       <h2>All done!</h2>
-      <p style="margin-top:.35rem">Thank you for completing the questionnaire. Your answers are saved and synced automatically. The landlord will review your responses and be in touch soon.</p>
+      <p style="margin-top:.35rem">Thank you for completing the questionnaire. Your answers are saved and synced automatically. Markley will review your responses and you can discuss together.</p>
     </div>`;
 
   return '';
